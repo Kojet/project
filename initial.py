@@ -10,7 +10,7 @@ def frame():#初始界面
     lable0 = tk.Label(root, text='Welcome to our library', bg='blue', font=('思源黑体', 60)).pack()#上
 	#canvas是个画布，想要插入图片的话首先要定义个canvas
     canvas = tk.Canvas(root, height=500, width=500)#中
-    image_file=tk.PhotoImage(file='2.gif')
+    image_file=tk.PhotoImage(file='cityu.gif')
     #图片文件的后缀必须是.gif，且亲测不能自行鼠标右键重命名更改成.gif，要用win10里内置的画图功能，打开图片然后另存为的时候选择.gif
     #图片文件必须放到你的项目目录里边才有效
     image = canvas.create_image(250, 100, image=image_file)
