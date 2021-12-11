@@ -50,7 +50,7 @@ def frame():
 def search():
 #我用了最原始的方法来动态查询
     if lis.get()=='All'and b_name.get()=='' and author.get()=='' :
-        sql="SELECT * FROM book "
+        sql="SELECT name, MAX(author), MAX(type), MAX(price), COUNT(*) FROM book GROUP BY name;"
     elif lis.get()=='All'and b_name.get()=='' and author.get()!='' :
         sql="SELECT * FROM book WHERE author='%s'"%(author.get())
     elif lis.get()=='All'and b_name.get()!='' and author.get()=='' :

@@ -58,16 +58,40 @@ def purchase():  # 进购图书
 
 
 def add():  # 添加图书信息到数据库中
-    print(b_name.get(), author.get(), lis.get(), price.get(), amount.get())
-    sql = "INSERT INTO book VALUES('%s','%s','%s','%s','%s')" % (
-    b_name.get(), author.get(), lis.get(), price.get(), amount.get())
+    #*******************************
+    b_type = lis.get()
+    num = amount.get()
+    sql_count = "SELECT COUNT(*) FROM book WHERE book.type = '%s'"%(b_type)
+
+    type_list = ['ALL', 'Humanity', 'Art', 'Computer', 'Technology', 'Magazine']
+    if b_type == 'ALL':
+        b_type = 'ALL'
+    else:
+        b_type = b_type[0]
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
+    #建立游标cursor，这个游标可以类比指针，这样理解比较直观
     cursor = db.cursor()
-    cursor.execute(sql)
-    db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
+    cursor.execute(sql_count) #sql语句被执行
+    result = cursor.fetchone()#得到的结果返回给result数组
+    b_id = b_type + str(result[0] + 1)
+    if int(num) > 1:
+        for i in range(int(num)):
+            b_id = b_type + str(result[0] + 1 + i)
+            sql = "INSERT INTO book VALUES('%s','%s','%s','%s','%s')" % (
+            b_id, b_name.get(), author.get(), lis.get(), price.get())
+            db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
+            cursor = db.cursor()
+            cursor.execute(sql)
+            db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
+    else:
+        sql = "INSERT INTO book VALUES('%s','%s','%s','%s','%s')" % (
+        b_id, b_name.get(), author.get(), lis.get(), price.get())
+        db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
+        cursor = db.cursor()
+        cursor.execute(sql)
+        db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
     db.close()
     msg.showinfo(title='Success！', message='The new book has been put in storage！')
-
 
 def cancel():  # 撤销图书
     global win
