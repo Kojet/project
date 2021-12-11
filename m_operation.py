@@ -61,7 +61,7 @@ def add():  # 添加图书信息到数据库中
     print(b_name.get(), author.get(), lis.get(), price.get(), amount.get())
     sql = "INSERT INTO book VALUES('%s','%s','%s','%s','%s')" % (
     b_name.get(), author.get(), lis.get(), price.get(), amount.get())
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
     cursor.execute(sql)
     db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
@@ -100,7 +100,7 @@ def cancel():  # 撤销图书
 
 def delete():
     sql = "DELETE FROM book WHERE type='%s' AND name='%s' AND author='%s'" % (lis.get(), b_name.get(), author.get())
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
     cursor.execute(sql)
     db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
