@@ -114,7 +114,7 @@ def confirm_turnback():
     sql2="SELECT date FROM borrow WHERE bookname='%s' AND author='%s'"%(b_name.get(),author.get())
     cursor.execute(sql2)
     result = cursor.fetchone()
-    day=(time1-result[0]).days#得到时间差，检查图书是否超期
+    day=(time1-result[0]).days #得到时间差，检查图书是否超期
     print(day)
     if day>30:
         msg.showinfo(title='Return successfully', message='Return successfully，but you are overdue！Please return on time next time')
