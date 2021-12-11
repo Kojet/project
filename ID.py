@@ -45,6 +45,14 @@ def success_login(a):#成功登录
         reader.root1.destroy()
         r_operation.frame()#销毁登录注册界面，跳转到读者的操作界面
 
+def success_register(a):#成功登录
+    if a == '1':
+        manager.root2.destroy()
+
+    elif a == '0':
+        reader.root2.destroy()
+
+
 def id_write(a):#写入（注册）账号
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
@@ -67,6 +75,7 @@ def id_write(a):#写入（注册）账号
             msg.showerror(title='Error！', message='The account has been registered，please enter again！')
         else:
             cursor.execute(sql1)
+            success_register(a)
             db.commit()
             db.close()
             msg.showinfo(title='Success！', message='Registration successful，please login！')
