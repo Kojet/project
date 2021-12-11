@@ -17,7 +17,7 @@ def id_check(a):#检查账号
         password = reader.entry_key.get()
     getid()#最后得到id
     #连接数据库，root是你数据库的用户名，应该是默认的是root，qwer是你数据库的密码，library是你要连接的数据库名字
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     #建立游标cursor，这个游标可以类比指针，这样理解比较直观
     cursor = db.cursor()
     sql = "SELECT password FROM user WHERE id='%s' AND job='%s'" % (id,a)
@@ -46,7 +46,7 @@ def success_login(a):#成功登录
         r_operation.frame()#销毁登录注册界面，跳转到读者的操作界面
 
 def id_write(a):#写入（注册）账号
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
     if a=='1':#跟check函数里边十分类似
         id = manager.entry_name.get()#得到输入的账号

@@ -39,7 +39,7 @@ def borrow():
     tk.Button(win, text='Confirm to borrow', font=('宋体', 12), width=10, command=confirm_borrow).place(x=600, y=195)
 
 def confirm_borrow():
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
     sql0="SELECT amount FROM book WHERE name='%s' AND author='%s'" % (b_name.get(), author.get())
     cursor.execute(sql0)
@@ -65,7 +65,7 @@ def turnback():#还书
     win.title('Reader')
     win.geometry('550x600')
 
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
     sql0 = "SELECT COUNT(*) FROM borrow WHERE id='%s'" % (ID.getid())
     cursor.execute(sql0)
@@ -103,7 +103,7 @@ def turnback():#还书
     db.close()
 
 def confirm_turnback():
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
 
     sql1 = "UPDATE book SET amount=amount+1 WHERE name='%s' AND author='%s'" % (b_name.get(), author.get())

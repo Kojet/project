@@ -65,7 +65,7 @@ def search():
     else :
         sql = "SELECT * FROM book WHERE type='%s' AND name='%s' AND author ='%s'" % (list.get(),b_name.get(), author.get())
 
-    db = pymysql.connect(host="localhost", user="root", password="Qq981214", database="library")
+    db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
     cursor.execute(sql)
     results=cursor.fetchall()
