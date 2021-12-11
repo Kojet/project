@@ -20,14 +20,17 @@ def id_check(a):#检查账号
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     #建立游标cursor，这个游标可以类比指针，这样理解比较直观
     cursor = db.cursor()
-    sql = "SELECT password FROM user WHERE id='%s' AND job='%s'" % (id,a)
+    sql = "SELECT password, job FROM user WHERE id='%s'" % (id)
     cursor.execute(sql) #sql语句被执行
     result = cursor.fetchone()#得到的结果返回给result数组
     if result:#如果查询到了账号存在
+        if a == result[1]:
             if password == result[0]:#result[0]是数组中的第一个结果
                 success_login(a)#密码对上了，进入对应的读者/管理员操作界面
             else:#有账号但密码没对上
                msg._show(title='Error！', message='Account or password typos！')
+        else:
+            msg.showerror(title='Error！', message='The account has been registered，please enter again！')
     else:#没有账号
         msg._show(title='Error！', message='The user entered does not exist！Please register at first！')
         if a == '1':
