@@ -49,12 +49,30 @@ def frame():
 
 def search():
 #我用了最原始的方法来动态查询
+    global tree#建立树形图
+    yscrollbar = ttk.Scrollbar(window, orient='vertical')#右边的滑动按钮
+    tree = ttk.Treeview(window, columns=('1', '2', '3', '4', '5'), show="headings",yscrollcommand=yscrollbar.set)
+    tree.column('1', width=150, anchor='center')
+    tree.column('2', width=150, anchor='center')
+    tree.column('3', width=150, anchor='center')
+    tree.column('4', width=150, anchor='center')
+    tree.column('5', width=150, anchor='center')
+    
+    tree.heading('1', text='Book Name')
+    tree.heading('2', text='Author')
+    tree.heading('3', text='Category')
+    tree.heading('4', text='Price')
+    tree.heading('5', text='Storage')
+    tree.place(x=200, y=150)
+    yscrollbar.place(x=955,y=150)
     if lis.get()=='All'and b_name.get()=='' and author.get()=='' :
         sql="SELECT name, MAX(author), MAX(type), MAX(price), COUNT(*) FROM book GROUP BY name;"
     elif lis.get()=='All'and b_name.get()=='' and author.get()!='' :
-        sql="SELECT * FROM book WHERE author='%s'"%(author.get())
+        sql="SELECT MAX(name), author as author, MAX(type) as type, MAX(price) as price, COUNT(*) as storage \
+            FROM book GROUP BY author HAVING author = '%s'"%(author.get())
     elif lis.get()=='All'and b_name.get()!='' and author.get()=='' :
-        sql = "SELECT * FROM book WHERE name='%s'" % (b_name.get())
+        sql = "SELECT name, MAX(author) as author, MAX(type) as type, MAX(price) as price, COUNT(*) \
+            as storage FROM book GROUP BY name HAVING name = '%s'" % (b_name.get())
     elif lis.get() != 'All'  and b_name.get() =='' and author.get() == '' :
         sql = "SELECT * FROM book WHERE type='%s'" % (lis.get())
     elif lis.get()=='All'and b_name.get() !='' and author.get()!= '' :
