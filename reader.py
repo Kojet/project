@@ -10,10 +10,10 @@ def frame():
 
     canvas = tk.Canvas(root, height=500, width=500)  # 中
     image_file = tk.PhotoImage(file='2.gif')
-    image = canvas.create_image(250, 100, image=image_file)
+    image = canvas.create_image(250, 80, image=image_file)
     canvas.place(x=190, y=170)
 
-    lable1 = tk.Label(root, text='Please choose:', font=('思源黑体', 30)).place(x=80, y=400)  # 下
+    lable1 = tk.Label(root, text='Please choose:', font=('思源黑体', 30)).place(x=80, y=420)  # 下
     tk.Button(root, text='Login', font=('思源黑体', 25), width=10, height=2, command=login).place(x=150, y=500)
     tk.Button(root, text='Register', font=('思源黑体', 25), width=10, height=2, command=register).place(x=350, y=500)
     tk.Button(root, text='Logout', font=('思源黑体', 25), width=10, height=2, command=exit_reader).place(x=550, y=500)
