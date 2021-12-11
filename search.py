@@ -68,21 +68,33 @@ def search():
     if lis.get()=='All'and b_name.get()=='' and author.get()=='' :
         sql="SELECT name, MAX(author), MAX(type), MAX(price), COUNT(*) FROM book GROUP BY name;"
     elif lis.get()=='All'and b_name.get()=='' and author.get()!='' :
-        sql="SELECT MAX(name), author as author, MAX(type) as type, MAX(price) as price, COUNT(*) as storage \
-            FROM book GROUP BY author HAVING author = '%s'"%(author.get())
+        sql="SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage \
+        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1 \
+        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.author='%s'"%(author.get())
     elif lis.get()=='All'and b_name.get()!='' and author.get()=='' :
-        sql = "SELECT name, MAX(author) as author, MAX(type) as type, MAX(price) as price, COUNT(*) \
-            as storage FROM book GROUP BY name HAVING name = '%s'" % (b_name.get())
+        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage \
+        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
+        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.name='%s'" % (b_name.get())
     elif lis.get() != 'All'  and b_name.get() =='' and author.get() == '' :
-        sql = "SELECT * FROM book WHERE type='%s'" % (lis.get())
+        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
+        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
+        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s'" % (lis.get())
     elif lis.get()=='All'and b_name.get() !='' and author.get()!= '' :
-        sql = "SELECT * FROM book WHERE name='%s' AND author='%s'" % (b_name.get(),author.get())
+        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage \
+        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1 \
+        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.name='%s' AND b.author='%s'" % (b_name.get(),author.get())
     elif lis.get() != 'All' and b_name.get() !='' and author.get() == '' :
-        sql = "SELECT * FROM book WHERE type='%s' AND name='%s'" % (lis.get(),b_name.get())
+        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
+        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
+        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s' AND b.name='%s'" % (lis.get(),b_name.get())
     elif lis.get() != 'All' and b_name.get() =='' and author.get() != '' :
-        sql = "SELECT * FROM book WHERE type='%s' AND author ='%s'" % (lis.get(), author.get())
+        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
+        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
+        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s' AND b.author='%s'" % (lis.get(), author.get())
     else :
-        sql = "SELECT * FROM book WHERE type='%s' AND name='%s' AND author ='%s'" % (lis.get(),b_name.get(), author.get())
+        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
+        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
+        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s' AND b.name='%s' AND b.author='%s'" % (lis.get(),b_name.get(), author.get())
 
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()

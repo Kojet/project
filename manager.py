@@ -9,14 +9,13 @@ def frame():#管理员界面
     root= tk.Tk()
     root.geometry('900x700')
     root.title('Library Management System')
-    lable0 = tk.Label(root, text='Administrator login', bg='blue', font=('思源黑体', 60)).pack()  # 上
+    lable0 = tk.Label(root, text='Administrator login', bg='#E4007F', font=('思源黑体', 60)).pack()  # 上
+    canvas = tk.Canvas(root, height=900, width=700)#中
+    image_file=tk.PhotoImage(file='cityu.gif')
+    image = canvas.create_image(450, 150, image=image_file)
+    canvas.place(x=0, y=90)
 
-    canvas = tk.Canvas(root, height=500, width=500)  # 中
-    image_file = tk.PhotoImage(file='2.gif')
-    image = canvas.create_image(250, 100, image=image_file)
-    canvas.place(x=190, y=170)
-
-    lable1 = tk.Label(root, text='Please choose:', font=('思源黑体', 30)).place(x=80, y=400)  # 下
+    lable1 = tk.Label(root, text='Please choose:', font=('思源黑体', 30)).place(x=80, y=415)  # 下
     tk.Button(root, text='Login', font=('思源黑体', 25), width=10, height=2, command=login).place(x=150, y=500)
     tk.Button(root, text='Register', font=('思源黑体', 25), width=10, height=2, command=register).place(x=350, y=500)
     tk.Button(root, text='Logout', font=('思源黑体', 25), width=10, height=2, command=exit_manager).place(x=550, y=500)
@@ -29,8 +28,8 @@ def login():#登录小窗口
     root1.title('Administrator Login')
     root1.geometry('500x300')
 
-    lable1 = tk.Label(root1, text='Account：', font=30).place(x=100,y=50)
-    lable2 = tk.Label(root1, text='Password：', font=30).place(x=100, y=100)
+    lable1 = tk.Label(root1, text='Account：', font=30).place(x=90,y=50)
+    lable2 = tk.Label(root1, text='Password：', font=30).place(x=80, y=100)
 
     global entry_name, entry_key
     name = tk.StringVar()
@@ -51,9 +50,9 @@ def register():#注册小窗口
     root2.title('Administrator Registration')
     root2.geometry('500x300')
 
-    lable1 = tk.Label(root2, text='Login：', font=30).place(x=100, y=50)
-    lable2 = tk.Label(root2, text='Password：', font=30).place(x=100, y=100)
-    lable2 = tk.Label(root2, text='Confirm Password：', font=30).place(x=80, y=150)
+    lable1 = tk.Label(root2, text='Login：', font=20).place(x=120, y=50)
+    lable2 = tk.Label(root2, text='Password：', font=20).place(x=90, y=100)
+    lable2 = tk.Label(root2, text='Confirm Password：', font=20).place(x=10, y=150)
 
     global entry_name, entry_key, entry_confirm
     name = tk.StringVar()

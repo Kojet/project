@@ -9,13 +9,13 @@ import pymysql
 def frame():
     window2 = tk.Tk()
     window2.title('Reader')
-    window2.geometry('700x600')
-    lable0 = tk.Label(window2, text='Welcome to our library', bg='blue', font=('思源黑体', 60)).pack()  # 上
+    window2.geometry('900x700')
+    lable0 = tk.Label(window2, text='Welcome to our library', bg='#E4007F', font=('思源黑体', 60)).pack()  # 上
 
-    lable1 = tk.Label(window2, text='Please choose your desired operation:', font=('思源黑体', 30)).place(x=80, y=400)  # 下
-    tk.Button(window2, text='Borrow', font=('思源黑体', 20), width=10, height=2,command=borrow).place(x=350, y=250)
-    tk.Button(window2, text='Return', font=('思源黑体', 20), width=10, height=2,command=turnback).place(x=350, y=350)
-    tk.Button(window2, text='Information Search', font=('思源黑体', 20), width=10, height=2,command=search.frame).place(x=350, y=450)
+    lable1 = tk.Label(window2, text='Please choose your desired operation:', font=('思源黑体', 30)).place(x=80, y=130)  # 下
+    tk.Button(window2, text='Borrow', font=('思源黑体', 20), width=20, height=2,command=borrow).place(x=330, y=250)
+    tk.Button(window2, text='Return', font=('思源黑体', 20), width=20, height=2,command=turnback).place(x=330, y=350)
+    tk.Button(window2, text='Information Search', font=('思源黑体', 20), width=20, height=2,command=search.frame).place(x=330, y=450)
     window2.mainloop()
 
 def borrow():

@@ -9,12 +9,12 @@ def frame():
     window = tk.Tk()
     window.title('Administrator')
     window.geometry('900x700')
-    lable0 = tk.Label(window, text='Welcome to our library', bg='blue', font=('思源黑体', 60)).pack()  # 上
+    lable0 = tk.Label(window, text='Welcome to our library', bg='#E4007F', font=('思源黑体', 60)).pack()  # 上
 
-    lable1 = tk.Label(window, text='Please choose your desired operation:', font=('思源黑体', 30)).place(x=80, y=400)  # 下
-    tk.Button(window, text='Book Purchase', font=('思源黑体', 20), width=10, height=2, command=purchase).place(x=350, y=250)
-    tk.Button(window, text='Book Cancellation', font=('思源黑体', 20), width=10, height=2, command=cancel).place(x=350, y=350)
-    tk.Button(window, text='Information Search', font=('思源黑体', 20), width=10, height=2, command=search.frame).place(x=350, y=450)
+    lable1 = tk.Label(window, text='Please choose your desired operation:', font=('思源黑体', 30)).place(x=80, y=130)  # 下
+    tk.Button(window, text='Book Purchase', font=('思源黑体', 20), width=20, height=2, command=purchase).place(x=330, y=250)
+    tk.Button(window, text='Book Cancellation', font=('思源黑体', 20), width=20, height=2, command=cancel).place(x=330, y=350)
+    tk.Button(window, text='Information Search', font=('思源黑体', 20), width=20, height=2, command=search.frame).place(x=330, y=450)
     window.mainloop()
 
 
@@ -123,9 +123,22 @@ def cancel():  # 撤销图书
 
 
 def delete():
-    sql = "DELETE FROM book WHERE type='%s' AND name='%s' AND author='%s'" % (lis.get(), b_name.get(), author.get())
+    b_type = lis.get()
+    if b_type == 'ALL':
+        b_type = 'ALL'
+    else:
+        b_type = b_type[0]
+    sql_d = "SELECT bid FROM book WHERE bid LIKE '{}%' AND name='{}' AND author='{}' LIMIT 1".format(b_type, b_name.get(), author.get())
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
-    cursor.execute(sql)
-    db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
-    msg.showinfo(title='Success！', message='This book is deleted！')
+    cursor.execute(sql_d)
+    result=cursor.fetchone()
+    if result:
+        b_id = result[0]
+        sql = "DELETE FROM book WHERE bid='%s'" % (b_id)
+        cursor = db.cursor()
+        cursor.execute(sql)
+        db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
+        msg.showinfo(title='Success！', message='This book is deleted！')
+    else:
+        msg.showinfo(title='Error！', message='No such book！')
