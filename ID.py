@@ -20,7 +20,7 @@ def id_check(a):#检查账号
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     #建立游标cursor，这个游标可以类比指针，这样理解比较直观
     cursor = db.cursor()
-    sql = "SELECT password, job FROM user WHERE id='%s'" % (id)
+    sql = "SELECT password, job FROM user WHERE uid='%s'" % (id)
     cursor.execute(sql) #sql语句被执行
     result = cursor.fetchone()#得到的结果返回给result数组
     if result:#如果查询到了账号存在
@@ -68,7 +68,7 @@ def id_write(a):#写入（注册）账号
         password = reader.entry_key.get()
         confirm = reader.entry_confirm.get()
 
-    sql0 = "SELECT id FROM user WHERE id='%s'" % (id)
+    sql0 = "SELECT uid FROM user WHERE uid='%s'" % (id)
     sql1 = "INSERT INTO user VALUES('%s','%s','%s') " % (id, password, a)
 #首先检查两次输入的密码是否一致，一致后再检查注册的账号是否已经存在
     if password == confirm:

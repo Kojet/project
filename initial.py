@@ -15,8 +15,8 @@ def frame():#初始界面
     canvas.place(x=0, y=90)
 
     lable1 = tk.Label(root, text='Please choose the user type:',font=('思源黑体', 30)).place(x=150, y=400)#下
-    tk.Button(root, text='Reader', font=('思源黑体', 20), width=10, height=2, command=exit_reader).place(x=360, y=460)
-    tk.Button(root, text='Administrator', font=('思源黑体', 20), width=10, height=2, command=exit_manager).place(x=360, y=550)
+    tk.Button(root, text='Reader', font=('思源黑体', 20), width=20, height=2, command=exit_reader).place(x=310, y=460)
+    tk.Button(root, text='Administrator', font=('思源黑体', 20), width=20, height=2, command=exit_manager).place(x=310, y=550)
 
     root.mainloop()#必须要有这句话，你的页面才会动态刷新循环，否则页面不会显示
 
