@@ -6,13 +6,13 @@ import manager
 import reader
 import m_operation
 import r_operation
-def id_check(a):#检查账号
+def id_check(a): 
     global id
     if a == '1':#在管理员界面下登录，参数是1
     #把账号/密码框框里输入的字符串赋值给id/password
         id = manager.entry_name.get()
         password = manager.entry_key.get()
-    else:#在读者界面下登录，参数是0
+    else: #在读者界面下登录，参数是0
         id = reader.entry_name.get()
         password = reader.entry_key.get()
     getid()#最后得到id

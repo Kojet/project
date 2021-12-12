@@ -143,4 +143,5 @@ def confirm_turnback():
             win.destroy()
         else:
             msg.showinfo(title='Error', message='You do not have this borrowed record!')
+            win.destroy()
 
