@@ -10,12 +10,12 @@ def frame():
     window2 = tk.Tk()
     window2.title('Reader')
     window2.geometry('900x700')
-    lable0 = tk.Label(window2, text='Welcome to our library', bg='#E4007F', font=('思源黑体', 60)).pack()  # 上
+    lable0 = tk.Label(window2, text='Welcome to our library', bg='#E4007F', font=('Arial', 60)).pack()  # 上
 
-    lable1 = tk.Label(window2, text='Please choose your desired operation:', font=('思源黑体', 30)).place(x=70, y=130)  # 下
-    tk.Button(window2, text='Borrow', font=('思源黑体', 20), width=20, height=2,command=borrow).place(x=330, y=250)
-    tk.Button(window2, text='Return', font=('思源黑体', 20), width=20, height=2,command=turnback).place(x=330, y=350)
-    tk.Button(window2, text='Information Search', font=('思源黑体', 20), width=20, height=2,command=search.frame).place(x=330, y=450)
+    lable1 = tk.Label(window2, text='Please choose your desired operation:', font=('Arial', 30)).place(x=70, y=130)  # 下
+    tk.Button(window2, text='Borrow', font=('Arial', 20), width=20, height=2,command=borrow).place(x=330, y=250)
+    tk.Button(window2, text='Return', font=('Arial', 20), width=20, height=2,command=turnback).place(x=330, y=350)
+    tk.Button(window2, text='Information Search', font=('Arial', 20), width=20, height=2,command=search.frame).place(x=330, y=450)
     window2.mainloop()
 
 def borrow():
@@ -24,21 +24,21 @@ def borrow():
     win.title('Reader')
     win.geometry('900x300')
     win.wm_attributes('-topmost', 1)
-    lable1 = tk.Label(win, text='Please enter the borrowed information:(Make sure the book name and author are correct！)', bg='#E4007F', font=('思源黑体', 15)).place(x=30, y=100)
+    lable1 = tk.Label(win, text='Please enter the borrowed information:(Make sure the book name and author are correct！)', bg='#E4007F', font=('Arial', 15)).place(x=30, y=100)
 
     global b_name
-    tk.Label(win, text='Book Name：', font=('宋体', 12)).place(x=160, y=200)
-    b_name = tk.Entry(win, font=('宋体', 12), width=10)
+    tk.Label(win, text='Book Name：', font=('Arial', 12)).place(x=160, y=200)
+    b_name = tk.Entry(win, font=('Arial', 12), width=10)
     b_name.place(x=250, y=200)
 
     global author
-    tk.Label(win, text='Author：', font=('宋体', 12)).place(x=330, y=200)
-    author = tk.Entry(win, font=('宋体', 12), width=10)
+    tk.Label(win, text='Author：', font=('Arial', 12)).place(x=330, y=200)
+    author = tk.Entry(win, font=('Arial', 12), width=10)
     author.place(x=400, y=200)
 
     global b_ID
 
-    tk.Button(win, text='Confirm to borrow', font=('宋体', 12), width=20, command=confirm_borrow).place(x=600, y=195)
+    tk.Button(win, text='Confirm to borrow', font=('Arial', 12), width=20, command=confirm_borrow).place(x=600, y=195)
 
 def confirm_borrow():
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
@@ -77,7 +77,7 @@ def turnback():#还书
     if result[0]==0:
         msg.showinfo(title='Error', message='You do not have borrowed record！')
     else :
-        lable1 = tk.Label(win, text='The following books are not returned：', bg='#E4007F', font=('思源黑体', 15)).place(x=50, y=20)
+        lable1 = tk.Label(win, text='The following books are not returned：', bg='#E4007F', font=('Arial', 15)).place(x=50, y=20)
         tree = ttk.Treeview(win, columns=('1', '2', '3'), show="headings")
         tree.column('1', width=150, anchor='center')
         tree.column('2', width=150, anchor='center')
@@ -94,19 +94,19 @@ def turnback():#还书
         for i in range(0,result[0]):
             tree.insert('', i, values=(result1[i]))
 
-        lable2 = tk.Label(win, text='Please enter the returned information：', bg='#E4007F', font=('思源黑体', 15)).place(x=50, y=360)
-        lable22=tk.Label(win, text='Make sure the book name and author are correct！', bg='#E4007F', font=('思源黑体', 15)).place(x=50, y=400)
+        lable2 = tk.Label(win, text='Please enter the returned information：', bg='#E4007F', font=('Arial', 15)).place(x=50, y=360)
+        lable22=tk.Label(win, text='Make sure the book name and author are correct！', bg='#E4007F', font=('Arial', 15)).place(x=50, y=400)
         global b_ID
-        tk.Label(win, text='Book ID：', font=('宋体', 12)).place(x=40, y=480)
-        b_ID = tk.Entry(win, font=('宋体', 12), width=10)
+        tk.Label(win, text='Book ID：', font=('Arial', 12)).place(x=40, y=480)
+        b_ID = tk.Entry(win, font=('Arial', 12), width=10)
         b_ID.place(x=130, y=480)
 
         global b_name
-        tk.Label(win, text='Name：', font=('宋体', 12)).place(x=220, y=480)
-        b_name = tk.Entry(win, font=('宋体', 12), width=10)
+        tk.Label(win, text='Name：', font=('Arial', 12)).place(x=220, y=480)
+        b_name = tk.Entry(win, font=('Arial', 12), width=10)
         b_name.place(x=280, y=480)
 
-        tk.Button(win, text='Confirm to return', font=('宋体', 12), width=20, command=confirm_turnback).place(x=370, y=475)
+        tk.Button(win, text='Confirm to return', font=('Arial', 12), width=20, command=confirm_turnback).place(x=370, y=475)
     db.close()
 
 def confirm_turnback():

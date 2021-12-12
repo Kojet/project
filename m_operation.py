@@ -9,12 +9,12 @@ def frame():
     window = tk.Tk()
     window.title('Administrator')
     window.geometry('900x700')
-    lable0 = tk.Label(window, text='Welcome to our library', bg='#E4007F', font=('思源黑体', 60)).pack()  # 上
+    lable0 = tk.Label(window, text='Welcome to our library', bg='#E4007F', font=('Arial', 60)).pack()  # 上
 
-    lable1 = tk.Label(window, text='Please choose your desired operation:', font=('思源黑体', 30)).place(x=80, y=130)  # 下
-    tk.Button(window, text='Book Purchase', font=('思源黑体', 20), width=20, height=2, command=purchase).place(x=330, y=250)
-    tk.Button(window, text='Book Cancellation', font=('思源黑体', 20), width=20, height=2, command=cancel).place(x=330, y=350)
-    tk.Button(window, text='Information Search', font=('思源黑体', 20), width=20, height=2, command=search.frame).place(x=330, y=450)
+    lable1 = tk.Label(window, text='Please choose your desired operation:', font=('Arial', 30)).place(x=80, y=130)  # 下
+    tk.Button(window, text='Book Purchase', font=('Arial', 20), width=20, height=2, command=purchase).place(x=330, y=250)
+    tk.Button(window, text='Book Cancellation', font=('Arial', 20), width=20, height=2, command=cancel).place(x=330, y=350)
+    tk.Button(window, text='Information Search', font=('Arial', 20), width=20, height=2, command=search.frame).place(x=330, y=450)
     window.mainloop()
 
 
@@ -24,9 +24,9 @@ def purchase():  # 进购图书
     win.title('Administrator')
     win.geometry('900x300')
     win.wm_attributes('-topmost', 1)
-    lable1 = tk.Label(win, text='Please enter the purchased information:', font=('思源黑体', 30)).place(x=30, y=100)
+    lable1 = tk.Label(win, text='Please enter the purchased information:', font=('Arial', 30)).place(x=30, y=100)
 
-    tk.Label(win, text='Book Category：', font=('宋体', 12)).place(x=30, y=200)
+    tk.Label(win, text='Book Category：', font=('Arial', 12)).place(x=30, y=200)
     global lis  # 这个是一个下拉页表项，只能从下面的list['values']里边选
     comvalue = tk.StringVar()
     lis = ttk.Combobox(win, textvariable=comvalue, height=10, width=10)
@@ -35,26 +35,26 @@ def purchase():  # 进购图书
     lis.current(0)  # 默认显示'全部'
 
     global b_name
-    tk.Label(win, text='Book Name：', font=('宋体', 12)).place(x=200, y=200)
-    b_name = tk.Entry(win, font=('宋体', 12), width=10)
+    tk.Label(win, text='Book Name：', font=('Arial', 12)).place(x=200, y=200)
+    b_name = tk.Entry(win, font=('Arial', 12), width=10)
     b_name.place(x=250, y=200)
 
     global author
-    tk.Label(win, text='Author：', font=('宋体', 12)).place(x=350, y=200)
-    author = tk.Entry(win, font=('宋体', 12), width=10)
+    tk.Label(win, text='Author：', font=('Arial', 12)).place(x=350, y=200)
+    author = tk.Entry(win, font=('Arial', 12), width=10)
     author.place(x=400, y=200)
 
     global price
-    tk.Label(win, text='Price：', font=('宋体', 12)).place(x=460, y=200)
-    price = tk.Entry(win, font=('宋体', 12), width=10)
+    tk.Label(win, text='Price：', font=('Arial', 12)).place(x=460, y=200)
+    price = tk.Entry(win, font=('Arial', 12), width=10)
     price.place(x=510, y=200)
 
     global amount
-    tk.Label(win, text='Count：', font=('宋体', 12)).place(x=560, y=200)
-    amount = tk.Entry(win, font=('宋体', 12), width=5)
+    tk.Label(win, text='Count：', font=('Arial', 12)).place(x=560, y=200)
+    amount = tk.Entry(win, font=('Arial', 12), width=5)
     amount.place(x=610, y=200)
 
-    tk.Button(win, text='Confirm to add', font=('宋体', 12), width=10, command=add).place(x=700, y=195)
+    tk.Button(win, text='Confirm to add', font=('Arial', 12), width=10, command=add).place(x=700, y=195)
 
 
 def add():  # 添加图书信息到数据库中
@@ -97,9 +97,9 @@ def cancel():  # 撤销图书
     win.title('Administrator')
     win.geometry('900x300')
     win.wm_attributes('-topmost', 1)
-    lable1 = tk.Label(win, text='Please enter the cancelled information:', font=('思源黑体', 30)).place(x=30, y=100)
+    lable1 = tk.Label(win, text='Please enter the cancelled information:', font=('Arial', 30)).place(x=30, y=100)
 
-    tk.Label(win, text='Book Category：', font=('宋体', 12)).place(x=30, y=200)
+    tk.Label(win, text='Book Category：', font=('Arial', 12)).place(x=30, y=200)
     global lis
     comvalue = tk.StringVar()
     lis = ttk.Combobox(win, textvariable=comvalue, height=10, width=10)
@@ -108,16 +108,16 @@ def cancel():  # 撤销图书
     lis.current(0)
 
     global b_name
-    tk.Label(win, text='Book Name：', font=('宋体', 12)).place(x=200, y=200)
-    b_name = tk.Entry(win, font=('宋体', 12), width=10)
+    tk.Label(win, text='Book Name：', font=('Arial', 12)).place(x=200, y=200)
+    b_name = tk.Entry(win, font=('Arial', 12), width=10)
     b_name.place(x=250, y=200)
 
     global author
-    tk.Label(win, text='Author：', font=('宋体', 12)).place(x=350, y=200)
-    author = tk.Entry(win, font=('宋体', 12), width=10)
+    tk.Label(win, text='Author：', font=('Arial', 12)).place(x=350, y=200)
+    author = tk.Entry(win, font=('Arial', 12), width=10)
     author.place(x=400, y=200)
 
-    tk.Button(win, text='Confirm to cancel', font=('宋体', 12), width=10, command=delete).place(x=600, y=195)
+    tk.Button(win, text='Confirm to cancel', font=('Arial', 12), width=10, command=delete).place(x=600, y=195)
 
 
 def delete():

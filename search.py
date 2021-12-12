@@ -9,7 +9,7 @@ def frame():
     window.title('Book Search')
     window.geometry('1200x700')
 
-    tk.Label(window,text='Book Category：',font=('宋体',12)).place(x=220,y=30)
+    tk.Label(window,text='Book Category：',font=('Arial',12)).place(x=220,y=30)
 
     global lis
     comvalue=tk.StringVar()
@@ -19,16 +19,16 @@ def frame():
     lis.current(0)
 
     global b_name
-    tk.Label(window, text='Book Name：', font=('宋体', 12)).place(x=450, y=30)
-    b_name=tk.Entry(window,font=('宋体', 12),width=15)
+    tk.Label(window, text='Book Name：', font=('Arial', 12)).place(x=450, y=30)
+    b_name=tk.Entry(window,font=('Arial', 12),width=15)
     b_name.place(x=500,y=30)
 
     global author
-    tk.Label(window, text='Author：', font=('宋体', 12)).place(x=650, y=30)
-    author = tk.Entry(window, font=('宋体', 12), width=15)
+    tk.Label(window, text='Author：', font=('Arial', 12)).place(x=650, y=30)
+    author = tk.Entry(window, font=('Arial', 12), width=15)
     author.place(x=700, y=30)
 
-    tk.Button(window,text='Search',font=('宋体', 12), width=10,command=search).place(x=900,y=25)
+    tk.Button(window,text='Search',font=('Arial', 12), width=10,command=search).place(x=900,y=25)
     global tree#建立树形图
     yscrollbar = ttk.Scrollbar(window, orient='vertical')#右边的滑动按钮
     tree = ttk.Treeview(window, columns=('1', '2', '3', '4', '5'), show="headings",yscrollcommand=yscrollbar.set)
