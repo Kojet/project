@@ -62,8 +62,6 @@ def add():  # 添加图书信息到数据库中
     b_type = lis.get()
     num = amount.get()
     sql_count = "SELECT COUNT(*) FROM book WHERE book.type = '%s'"%(b_type)
-
-    type_list = ['ALL', 'Humanity', 'Art', 'Computer', 'Technology', 'Magazine']
     if b_type == 'ALL':
         b_type = 'ALL'
     else:

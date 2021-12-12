@@ -66,35 +66,49 @@ def search():
     tree.place(x=200, y=150)
     yscrollbar.place(x=955,y=150)
     if lis.get()=='All'and b_name.get()=='' and author.get()=='' :
-        sql="SELECT name, MAX(author), MAX(type), MAX(price), COUNT(*) FROM book GROUP BY name;"
+        sql="SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type"
     elif lis.get()=='All'and b_name.get()=='' and author.get()!='' :
-        sql="SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage \
-        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1 \
-        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.author='%s'"%(author.get())
+        sql="SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type AND b1.author='%s'"%(author.get())
     elif lis.get()=='All'and b_name.get()!='' and author.get()=='' :
-        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage \
-        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
-        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.name='%s'" % (b_name.get())
+        sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type AND b1.name='%s'" % (b_name.get())
     elif lis.get() != 'All'  and b_name.get() =='' and author.get() == '' :
-        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
-        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
-        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s'" % (lis.get())
+        sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type AND b1.type='%s'" % (lis.get())
     elif lis.get()=='All'and b_name.get() !='' and author.get()!= '' :
-        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage \
-        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1 \
-        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.name='%s' AND b.author='%s'" % (b_name.get(),author.get())
+        sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
+                        AND b1.name='%s' AND b1.author='%s'" % (b_name.get(),author.get())
     elif lis.get() != 'All' and b_name.get() !='' and author.get() == '' :
-        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
-        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
-        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s' AND b.name='%s'" % (lis.get(),b_name.get())
+        sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
+                         AND b1.type='%s' AND b1.name='%s'" % (lis.get(),b_name.get())
     elif lis.get() != 'All' and b_name.get() =='' and author.get() != '' :
-        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
-        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
-        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s' AND b.author='%s'" % (lis.get(), author.get())
+        sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
+                         AND b1.type='%s' AND b1.author='%s'" % (lis.get(), author.get())
     else :
-        sql = "SELECT DISTINCT(b.name), b.author, b.type, b.price, tb1.storage\
-        FROM (SELECT b1.name, COUNT(*) as storage FROM book b1\
-        GROUP BY b1.name) tb1, book b WHERE b.name=tb1.name AND b.type='%s' AND b.name='%s' AND b.author='%s'" % (lis.get(),b_name.get(), author.get())
+        sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
+            (SELECT tb1.name, tb1.type, COUNT(*) as storage \
+                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                    GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
+                         AND b1.type='%s' AND b1.name='%s' AND b1.author='%s'" % (lis.get(),b_name.get(), author.get())
 
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()

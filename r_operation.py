@@ -36,6 +36,8 @@ def borrow():
     author = tk.Entry(win, font=('宋体', 12), width=10)
     author.place(x=400, y=200)
 
+    global b_ID
+
     tk.Button(win, text='Confirm to borrow', font=('宋体', 12), width=20, command=confirm_borrow).place(x=600, y=195)
 
 def confirm_borrow():
@@ -45,18 +47,18 @@ def confirm_borrow():
         #msg.showinfo(title='Error！', message='Please enter the book name and author name！')
         result = None
     else:
-        sql0="SELECT bid FROM book WHERE name='%s' AND author='%s'" % (b_name.get(), author.get())
+        sql0="SELECT bid FROM book WHERE name='%s' AND author='%s' AND bid NOT IN \
+        (SELECT bid FROM borrow)" % (b_name.get(), author.get())
         cursor.execute(sql0)
         result=cursor.fetchone()
     if result:
         time = dt.datetime.now().strftime('%F')#得到的时间不是字符串型，我们要把时间转化成字符串型
         b_id = result[0]
-        sql1 = "INSERT INTO borrow VALUES('%s','%s','%s','%s','%s')" % (b_id,b_name.get(),author.get(),ID.getid(),time)
-        sql2 = "DELETE FROM book WHERE bid='%s'" % (b_id)
+        sql1 = "INSERT INTO borrow VALUES('%s','%s','%s')" % (b_id,ID.getid(),time)
         cursor.execute(sql1)
-        cursor.execute(sql2)
         db.commit()
         db.close()
+        win.destroy()
         msg.showinfo(title='Success！', message='Borrow successfully！Please return within one month')
     else:
         msg.showinfo(title='Error！', message='Fail to locate the book！')
@@ -69,7 +71,7 @@ def turnback():#还书
 
     db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
     cursor = db.cursor()
-    sql0 = "SELECT COUNT(*) FROM borrow WHERE rid='%s'" % (ID.getid())
+    sql0 = "SELECT COUNT(*) FROM borrow WHERE uid='%s'" % (ID.getid())
     cursor.execute(sql0)
     result = cursor.fetchone()
     if result[0]==0:
@@ -85,7 +87,8 @@ def turnback():#还书
         tree.heading('3', text='Author')
         tree.place(x=50, y=100)
 
-        sql1 = "SELECT bid, bname,author FROM borrow WHERE rid='%s'" % (ID.getid())
+        sql1 = "SELECT b.bid, b.name, b.author FROM borrow a, book b WHERE a.uid='%s' \
+            AND b.bid=a.bid" % (ID.getid())
         cursor.execute(sql1)
         result1 = cursor.fetchall()
         for i in range(0,result[0]):
@@ -93,32 +96,35 @@ def turnback():#还书
 
         lable2 = tk.Label(win, text='Please enter the returned information：', bg='#E4007F', font=('思源黑体', 15)).place(x=50, y=360)
         lable22=tk.Label(win, text='Make sure the book name and author are correct！', bg='#E4007F', font=('思源黑体', 15)).place(x=50, y=400)
-        global b_name
-        tk.Label(win, text='Book Name：', font=('宋体', 12)).place(x=40, y=480)
-        b_name = tk.Entry(win, font=('宋体', 12), width=10)
-        b_name.place(x=130, y=480)
+        global b_ID
+        tk.Label(win, text='Book ID：', font=('宋体', 12)).place(x=40, y=480)
+        b_ID = tk.Entry(win, font=('宋体', 12), width=10)
+        b_ID.place(x=130, y=480)
 
-        global author
-        tk.Label(win, text='Author：', font=('宋体', 12)).place(x=220, y=480)
-        author = tk.Entry(win, font=('宋体', 12), width=10)
-        author.place(x=280, y=480)
+        global b_name
+        tk.Label(win, text='Name：', font=('宋体', 12)).place(x=220, y=480)
+        b_name = tk.Entry(win, font=('宋体', 12), width=10)
+        b_name.place(x=280, y=480)
 
         tk.Button(win, text='Confirm to return', font=('宋体', 12), width=20, command=confirm_turnback).place(x=370, y=475)
     db.close()
 
 def confirm_turnback():
-    if not b_name.get() or not author.get():
-        msg.showinfo(title='Return successfully', message='Please enter the book name and author name!')
+    if not b_ID.get() and not b_name.get():
+        msg.showinfo(title='Error', message='Please enter the book id or the book name!')
     else:
+        if not b_ID.get() and b_name.get():
+            sql0 = "SELECT bid FROM book WHERE name='%s' AND bid IN\
+            (SELECT bid FROM borrow)" % (b_name.get())
+        else:
+            sql0 = "SELECT bid FROM borrow WHERE bid='%s' AND uid='%s'" % (b_ID.get(), ID.getid())
+
         db = pymysql.connect(host="120.79.31.91", user="visitor", password="1234", database="library")
         cursor = db.cursor()
-        sql0 = "SELECT bid FROM borrow WHERE rid='%s' AND bname='%s' AND author='%s'" % (ID.getid(),b_name.get(),author.get())
         cursor.execute(sql0)
         result = cursor.fetchall()
         if result:
             b_id = result[0]
-            
-
             time1=dt.datetime.now()#获取现在的时间
             sql1="SELECT date FROM borrow WHERE bid='%s'"%(b_id)
             cursor.execute(sql1)
@@ -130,10 +136,8 @@ def confirm_turnback():
             else:
                 msg.showinfo(title='Return successfully', message='Return successfully，and no more than 30 days')
 
-            sql2 = "INSERT INTO book VALUES('%s','%s','%s','%s','%s')" % (b_id, b_name.get(),author.get(),)
-            sql3 = "DELETE FROM borrow WHERE bid='%s'" % (b_id)
+            sql2 = "DELETE FROM borrow WHERE bid='%s'" % (b_id)
             cursor.execute(sql2)
-            cursor.execute(sql3)
             db.commit()
             db.close()
             win.destroy()
