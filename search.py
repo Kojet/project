@@ -68,45 +68,45 @@ def search():
     if lis.get()=='All'and b_name.get()=='' and author.get()=='' :
         sql="SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type"
     elif lis.get()=='All'and b_name.get()=='' and author.get()!='' :
         sql="SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type AND b1.author='%s'"%(author.get())
     elif lis.get()=='All'and b_name.get()!='' and author.get()=='' :
         sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type AND b1.name='%s'" % (b_name.get())
     elif lis.get() != 'All'  and b_name.get() =='' and author.get() == '' :
         sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type AND b1.type='%s'" % (lis.get())
     elif lis.get()=='All'and b_name.get() !='' and author.get()!= '' :
         sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
                         AND b1.name='%s' AND b1.author='%s'" % (b_name.get(),author.get())
     elif lis.get() != 'All' and b_name.get() !='' and author.get() == '' :
         sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
                          AND b1.type='%s' AND b1.name='%s'" % (lis.get(),b_name.get())
     elif lis.get() != 'All' and b_name.get() =='' and author.get() != '' :
         sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
                          AND b1.type='%s' AND b1.author='%s'" % (lis.get(), author.get())
     else :
         sql = "SELECT DISTINCT(b1.name), b1.author, b1.type, b1.price, tb2.storage FROM \
             (SELECT tb1.name, tb1.type, COUNT(*) as storage \
-                FROM (SELECT b.bid, b.name, b.type FROM book b, borrow o WHERE b.bid <> o.bid) tb1 \
+                FROM (SELECT b.bid, b.name, b.type FROM book b WHERE b.bid NOT IN (SELECT bid FROM borrow)) tb1 \
                     GROUP BY tb1.name, tb1.type) tb2, book b1 WHERE b1.name=tb2.name AND b1.type=tb2.type \
                          AND b1.type='%s' AND b1.name='%s' AND b1.author='%s'" % (lis.get(),b_name.get(), author.get())
 

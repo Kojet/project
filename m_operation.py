@@ -137,6 +137,7 @@ def delete():
         cursor = db.cursor()
         cursor.execute(sql)
         db.commit()  # 这句不可或缺，当我们修改数据完成后必须要确认才能真正作用到数据库里
+        db.close()
         msg.showinfo(title='Success！', message='This book is deleted！')
     else:
         msg.showinfo(title='Error！', message='No such book！')
