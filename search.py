@@ -9,7 +9,7 @@ def frame():
     window.title('Book Search')
     window.geometry('1200x700')
 
-    tk.Label(window,text='Book Category：',font=('Arial',12)).place(x=220,y=30)
+    tk.Label(window,text='Book Category：',font=('Arial',12)).place(x=180,y=30)
 
     global lis
     comvalue=tk.StringVar()
@@ -19,12 +19,12 @@ def frame():
     lis.current(0)
 
     global b_name
-    tk.Label(window, text='Book Name：', font=('Arial', 12)).place(x=450, y=30)
+    tk.Label(window, text='Book Name：', font=('Arial', 12)).place(x=400, y=30)
     b_name=tk.Entry(window,font=('Arial', 12),width=15)
     b_name.place(x=500,y=30)
 
     global author
-    tk.Label(window, text='Author：', font=('Arial', 12)).place(x=650, y=30)
+    tk.Label(window, text='Author：', font=('Arial', 12)).place(x=640, y=30)
     author = tk.Entry(window, font=('Arial', 12), width=15)
     author.place(x=700, y=30)
 

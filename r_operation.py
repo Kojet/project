@@ -27,12 +27,12 @@ def borrow():
     lable1 = tk.Label(win, text='Please enter the borrowed information:(Make sure the book name and author are correct！)', bg='#E4007F', font=('Arial', 15)).place(x=30, y=100)
 
     global b_name
-    tk.Label(win, text='Book Name：', font=('Arial', 12)).place(x=160, y=200)
+    tk.Label(win, text='Book Name：', font=('Arial', 12)).place(x=150, y=200)
     b_name = tk.Entry(win, font=('Arial', 12), width=10)
     b_name.place(x=250, y=200)
 
     global author
-    tk.Label(win, text='Author：', font=('Arial', 12)).place(x=330, y=200)
+    tk.Label(win, text='Author：', font=('Arial', 12)).place(x=335, y=200)
     author = tk.Entry(win, font=('Arial', 12), width=10)
     author.place(x=400, y=200)
 
