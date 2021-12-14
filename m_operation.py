@@ -61,6 +61,8 @@ def add():  # 添加图书信息到数据库中
     #*******************************
     b_type = lis.get()
     num = amount.get()
+    if not b_name.get() or not author.get() or not lis.get() or not price.get():
+        msg.showinfo(title='Error！', message='Please enter all the information！')
     sql_count = "SELECT COUNT(*) FROM book WHERE book.type = '%s'"%(b_type)
     if b_type == 'ALL':
         b_type = 'ALL'
